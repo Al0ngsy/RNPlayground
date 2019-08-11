@@ -1,18 +1,23 @@
 # RNPlayground
-Testing React Native/Expo
+Testing React Native/Expo  
 
-- using React Native Expo CLI to create a project
-https://facebook.github.io/react-native/docs/getting-started
+- using React Native Expo CLI to create a project  
+https://facebook.github.io/react-native/docs/getting-started  
 
-- inside Project folder:
-expo start
+- inside Project folder:  
+expo start  
 
-- for live demo get the PlayStore Expo App
-https://play.google.com/store/apps/details?id=host.exp.exponent&gl=DE
-- or use an emulator
+- for live demo get the PlayStore Expo App  
+https://play.google.com/store/apps/details?id=host.exp.exponent&gl=DE  
+- or use an emulator  
 
-- Expo Docu for API ref
-https://docs.expo.io/versions/latest/
+- Expo Docu for API ref  
+https://docs.expo.io/versions/latest/  
 
-- Navigation between screen
-https://facebook.github.io/react-native/docs/navigation.html
+- Navigation between screen  
+https://facebook.github.io/react-native/docs/navigation.html  
+
+- To Build the apk with Expo do:  
+expo start  
+expo build:android -t apk  
+expo fetch:android:keystore // for keystore if expo handle the process, remember to add it to .gitignore  
