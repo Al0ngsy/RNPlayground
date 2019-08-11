@@ -14,8 +14,8 @@ https://play.google.com/store/apps/details?id=host.exp.exponent&gl=DE
 - Expo Docu for API ref  
 https://docs.expo.io/versions/latest/  
 
-- Navigation between screen  
-https://facebook.github.io/react-native/docs/navigation.html  
+- Navigation between screens  
+https://reactnavigation.org/en/  
 
 - To Build the apk with Expo do:  
 expo start  
