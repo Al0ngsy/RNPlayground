@@ -11,6 +11,11 @@ export default class HomePage extends Component {
             title="Go To Location Finder"
             onPress={() => this.props.navigation.navigate("Location")}
         />
+        <Button 
+        style={styles.button}
+            title="Go to Saving Datas"
+            onPress={() => this.props.navigation.navigate("SaveDatas")}
+        />
       </View>
     );
   }
@@ -18,7 +23,7 @@ export default class HomePage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, 
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
