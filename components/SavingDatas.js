@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Constants from 'expo-constants';
 
 
-export default class HomePage extends Component {
+export default class SavingDatas extends Component {
+    static navigationOptions = {
+        title: 'Save Data',
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +34,7 @@ export default class HomePage extends Component {
         /**code here */
         // saving/append state to an external File
         /**code here */
-        console.log("Saving to Storage")
+        console.log("Saving to Device Storage")
         alert("Data Saved.");
     }
 
@@ -53,10 +57,8 @@ export default class HomePage extends Component {
 
     render() {
         return (
+
             <View style={styles.container}>
-                <View style={styles.containerHeader}>
-                    <Text style={styles.header}>Save Datas</Text>
-                </View>   
                 <View style={styles.containerBody}>
                     <View style={styles.containerBodyElem}>
                         <Text style={styles.text}>Firma</Text>
@@ -77,12 +79,9 @@ export default class HomePage extends Component {
                     </View>
                 </View>
                 <View style={styles.containerFooder}>
-                    <View style={styles.containerBodyElem}>
-                        <Button 
-                            title="Save"
-                            onPress={this.saveToFile}
-                        />
-                    </View>
+                    <TouchableOpacity style={styles.button} onPress={this.saveToFile}>
+                        <Text>Save to Device</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -92,44 +91,19 @@ export default class HomePage extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        borderColor: "blue",
-        borderWidth:2
     },
-    containerHeader: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-        borderColor: "red",
-        borderWidth:2
-      },
     containerBody: {
         flex:8,
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "space-evenly",
-        backgroundColor: '#F5FCFF',
-        borderColor: "green",
-        borderWidth:2
     },
     containerFooder: {
         flex:2,
-        flexDirection: "row-reverse",
-        alignItems: 'flex-end',
-        backgroundColor: '#F5FCFF',
-        borderColor: "green",
-        borderWidth:2
+        justifyContent: "center",
+        paddingHorizontal: 10
     },
     containerBodyElem: {
-        marginBottom: 80,
-        marginRight: 50,
-        borderColor: "yellow",
-        borderWidth:2
-    },
-    header: {
-        fontSize: 25,
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        textAlign: 'center',
-        margin: 20
+        marginLeft: 10,
     },
     textInput: {
         height: 40,
@@ -142,5 +116,12 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         margin: 10,
-      }
+    },
+    button: {
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        margin: 5,
+        padding: 10,
+        borderRadius: 5
+    },
 })
