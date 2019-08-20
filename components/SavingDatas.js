@@ -35,7 +35,7 @@ export default class SavingDatas extends Component {
       }
 
     saveToFile = async () => {
-        console.log("Start Saving")
+        console.log("Start Saving.")
         // checking if all data needed are filled out
         if (this.state.Firma === null || this.state.Menge === null) {
             alert("No Data Input To Be Saved.");
@@ -51,11 +51,11 @@ export default class SavingDatas extends Component {
             const data = await AsyncStorage.getItem(key)
 
             if(data === null){
-                let keys = await AsyncStorage.getItem("KEYS")
-                if (keys !== null) {
-                    keys = JSON.parse(keys)
-                    keys.key.push(key)
-                    await AsyncStorage.setItem("KEYS", JSON.stringify(keys))
+                let keyObj = await AsyncStorage.getItem("KEYS")
+                if (keyObj !== null) {
+                    keyObj = JSON.parse(keyObj)
+                    keyObj.key.push(key)
+                    await AsyncStorage.setItem("KEYS", JSON.stringify(keyObj))
                 } else {
                     const keyObj = {
                         key: [key]
@@ -82,13 +82,15 @@ export default class SavingDatas extends Component {
     }
 
     testLoad = async () => {
-        console.log("Start Loading")
+        console.log("Start Loading.")
         try {
             let keyArray = await AsyncStorage.getAllKeys()
+            console.log(keyArray)
             let keys = null
             for (let i = 0; i < keyArray.length; i++) {
                 if (keyArray[i].toString() == "KEYS") {
                     keys = await AsyncStorage.getItem(keyArray[i])
+                    console.log(keys)
                     keys = JSON.parse(keys)
                     console.log(keys)
                 }
@@ -105,7 +107,7 @@ export default class SavingDatas extends Component {
     }
 
     testClear = async () => {
-        console.log("Start Clearing")
+        console.log("Start Clearing.")
         try {
             await AsyncStorage.clear()
             await AsyncStorage.getAllKeys()
