@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { Platform, 
+        StyleSheet, 
+        Text, 
+        View,
+        TouchableOpacity,
+        AsyncStorage } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Constants from 'expo-constants';
 
@@ -12,8 +17,8 @@ export default class SavingDatas extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Firma: "",
-            Menge: "",
+            Firma: null,
+            Menge: null,
             errMes: null,
         }
     }
@@ -30,12 +35,86 @@ export default class SavingDatas extends Component {
       }
 
     saveToFile = async () => {
+        console.log("Start Saving")
         // checking if all data needed are filled out
-        /**code here */
-        // saving/append state to an external File
-        /**code here */
-        console.log("Saving to Device Storage")
-        alert("Data Saved.");
+        if (this.state.Firma === null || this.state.Menge === null) {
+            alert("No Data Input To Be Saved.");
+            return;
+        }
+
+        try {
+            // hex key generation 
+            const key = '#'+Math.floor(Math.random()*16777215).toString(16)
+            console.log(`Key is ${key}`)
+
+            // checking if key was used before
+            const data = await AsyncStorage.getItem(key)
+
+            if(data === null){
+                let keys = await AsyncStorage.getItem("KEYS")
+                if (keys !== null) {
+                    keys = JSON.parse(keys)
+                    keys.key.push(key)
+                    await AsyncStorage.setItem("KEYS", JSON.stringify(keys))
+                } else {
+                    const keyObj = {
+                        key: [key]
+                    }
+                    await AsyncStorage.setItem("KEYS", JSON.stringify(keyObj))
+                }  
+                const bestellungObj = {
+                    Firma: this.state.Firma,
+                    Menge: this.state.Menge
+                }
+                
+                await AsyncStorage.setItem(
+                    key,
+                    JSON.stringify(bestellungObj)
+                )
+            } else {
+                this.saveToFile()   // recursive magic
+                return
+            }
+        } catch (error) {
+            console.log(error)
+            alert("Data Failed To Be Saved.")
+        }
+    }
+
+    testLoad = async () => {
+        console.log("Start Loading")
+        try {
+            let keyArray = await AsyncStorage.getAllKeys()
+            let keys = null
+            for (let i = 0; i < keyArray.length; i++) {
+                if (keyArray[i].toString() == "KEYS") {
+                    keys = await AsyncStorage.getItem(keyArray[i])
+                    keys = JSON.parse(keys)
+                    console.log(keys)
+                }
+            }
+            keys.key.forEach(async (hexKey) => {
+                console.log(`Key is ${hexKey}`)
+                let bestellungObj = await AsyncStorage.getItem(hexKey.toString())
+                bestellungObj = JSON.parse(bestellungObj)
+                console.log(`Bestellung bei der Firma: ${bestellungObj.Firma} mit der Menge: ${bestellungObj.Menge}`)
+            });
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    testClear = async () => {
+        console.log("Start Clearing")
+        try {
+            await AsyncStorage.clear()
+            await AsyncStorage.getAllKeys()
+            .then(ks =>
+                console.log(ks)   
+            )
+        } catch (error) {
+            alert(error)
+        }
     }
 
     onChangeNumber = (text) => {
@@ -82,6 +161,12 @@ export default class SavingDatas extends Component {
                     <TouchableOpacity style={styles.button} onPress={this.saveToFile}>
                         <Text>Save to Device</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={this.testLoad}>
+                        <Text>Test Load from Device</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={this.testClear}>
+                        <Text>Clear all</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -93,12 +178,12 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     containerBody: {
-        flex:8,
+        flex:7,
         flexDirection: "column",
         justifyContent: "space-evenly",
     },
     containerFooder: {
-        flex:2,
+        flex:3,
         justifyContent: "center",
         paddingHorizontal: 10
     },
