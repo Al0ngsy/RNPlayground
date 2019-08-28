@@ -1,10 +1,10 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 8816,
+  "packagerPid": 6720,
   "expoServerNgrokUrl": "https://vf-489.al0ngsy.rnplayground.exp.direct",
   "packagerNgrokUrl": "https://packager.vf-489.al0ngsy.rnplayground.exp.direct",
-  "ngrokPid": 8096,
+  "ngrokPid": 3964,
   "devToolsPort": 19002,
   "webpackServerPort": null
 }
