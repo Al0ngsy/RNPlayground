@@ -16,6 +16,9 @@ export default class HomePage extends Component {
         <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("SaveDatas")}>
             <Text>Save Data</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate("ShowDatas")}>
+            <Text>Show Data</Text>
+        </TouchableOpacity>
       </View>
     );
   }
