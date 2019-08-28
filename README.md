@@ -20,4 +20,8 @@ https://reactnavigation.org/en/
 - To Build the apk with Expo do:  
 expo start  
 expo build:android -t apk  
-expo fetch:android:keystore // for keystore if expo handle the process, remember to add it to .gitignore  
+expo fetch:android:keystore // for keystore if expo handle the process, remember to add it to .gitignore
+
+- need the following packages to work correctly  
+react-native-gesture-handler  
+react-native-elements
